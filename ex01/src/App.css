@@ -1,0 +1,26 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Single+Day&display=swap');
+
+*{
+  font-family: "Single Day", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+.App {
+  text-align: center;
+  margin-top: 50px;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.bookSearch .title{
+  font-size: 15px;
+}
+.contentsTextColor{
+  color:rgb(139, 139, 139);
+}
+ 
