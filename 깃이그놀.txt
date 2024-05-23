@@ -17,8 +17,8 @@ npm i axios
 npm i react-router-dom
 npm i react-kakao-maps-sdk
 npm i firebase
-<<<<<<< HEAD
+
 -------------------------------------------------------------
-=======
--------------------------------------------------------------
->>>>>>> 4557cdbbdd054e499d5bc68ea23edbdb03cad6fb
+
+
+
