@@ -1,7 +1,20 @@
 노드모듈은 그냥 npm install하면 받을 수 있음
 
+----------------------------------------------------------
+(윈도우 cmd창에서 입력)
+
+npm i -g yarn
+
+md react 
+cd react
+
+yarn create react-app 파일이름
+--------------------------------------------------------------
+(vscode에서 터미널에 입력)
+
+npm install react-bootstrap bootstrap
 npm i axios
-npm i bootstrap react-bootstrap
 npm i react-router-dom
 npm i react-kakao-maps-sdk
 npm i firebase
+-------------------------------------------------------------
