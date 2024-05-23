@@ -1,1 +1,7 @@
 노드모듈은 그냥 npm install하면 받을 수 있음
+
+npm i axios
+npm i bootstrap react-bootstrap
+npm i react-router-dom
+npm i react-kakao-maps-sdk
+npm i firebase
