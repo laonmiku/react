@@ -1,0 +1,78 @@
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { Form } from 'react-bootstrap'
+import { app } from '../../firebaseInit'
+import { getStorage, uploadBytes, ref, getDownloadURL } from 'firebase/storage';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
+
+const ModalPhoto = ({setForm,setLoading , form}) => {
+    const storage = getStorage(app);
+    const db = getFirestore(app);
+    const uid = sessionStorage.getItem("uid");
+    
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => {
+        setShow(false);
+        setFileName(form.photo);
+    };
+    const handleShow = () => setShow(true);
+    const [fileName, setFileName] = useState(form.photo);
+    const [file, setFile] = useState(null);
+
+    const onChangeFile = (e) => {
+        setFileName(URL.createObjectURL(e.target.files[0]));
+        setFile(e.target.files[0]);
+    }
+
+    const onClickSave= async()=>{
+        if(fileName===''){
+            alert("변경할 이미지를 선택하세요!");
+            return;
+        }
+        if(!window.confirm("이미지를 변경하실래요")) return;
+        setLoading(true);
+        //사진저장
+        const res = await uploadBytes(ref(storage, `photo/${Date.now()}.jpg`), file);
+        const url = await getDownloadURL(res.ref);
+        console.log(url);
+
+        await setDoc(doc(db,'users',uid),{...form,photo:url});
+        setForm({...form, photo:url});
+        setLoading(false);
+        alert("사진저장완료");
+    }
+
+    return (
+        <>
+            <div className='text-center'>
+                <img src={form.photo || "http://via.placeholder.com/200x200" }width="170" className='mypageImg'
+                    onClick={handleShow} />
+            </div>        
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>사진변경</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className='text-center'>
+                    
+                    <img src={fileName || "http://via.placeholder.com/200x200"} style={{borderRadius : '50%'}} width="200"/>
+                    <Form.Control onChange={onChangeFile} type="file" className='mt-3'/>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        취소
+                    </Button>
+                    <Button variant="success" onClick={onClickSave}>저장</Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
+}
+
+
+export default ModalPhoto

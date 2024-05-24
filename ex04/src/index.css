@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Single+Day&display=swap');
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+*{
+  font-family: "Single Day", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.copyright{
+  color: rgb(148, 147, 148);
+  font-size: 20px;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.ellipsis2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+
+.booksearch .bookTitle{
+  color:rgb(65, 136, 59);
+  font-size: 15px;
+}
+
+.title{
+  width: 20%; 
+}
+
+
+.booksearch .cart{
+  font-size: 20px;
+  color: rgb(74, 138, 11);
+  cursor: pointer;
+}
+
+.booksearch .cart:hover{
+  color: red;
+}
+
+.pageButton{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.mypageImg{
+  border-radius: 50%;
+  cursor: pointer;
+  margin : 10px 0px;
+  border: 1px solid rgb(138, 138, 138);
+}
+.mypageEmail{
+  font-size: 25px;
+  color: rgb(172, 172, 172);
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  text-align: center;
+  padding: 0;
+}
