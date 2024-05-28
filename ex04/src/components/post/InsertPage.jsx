@@ -5,14 +5,16 @@ import {getFirestore,addDoc,collection} from 'firebase/firestore'
 import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 
+
 const InsertPage = () => {
-  
+    
     const[loading,setLoading] =useState(false);
     const navi= useNavigate();
     const db=getFirestore(app);
     const [form, setForm] = useState({
         title:'',
-        body:''
+        body:'',
+        
     });
     const {title,body} = form; //비구조할당
     const onChangeForm = (e)=>{
@@ -44,7 +46,7 @@ const InsertPage = () => {
             <Col xs={10} md={8} lg={7}>
                 <form onSubmit={onSubmit}>
                     <Row>
-                        <Col xs={5} md={5} lg={4}><Form.Control name='name'  /></Col>
+                        <Col xs={5} md={5} lg={4}></Col>
                     </Row>
                     <Form.Control name='title' value={title} onChange={onChangeForm} placeholder='제목을 입력하세요.' className='mb-2'/>
                     <Form.Control name='body' value={body} onChange={onChangeForm}  placeholder='내용을 입력하세요.' as="textarea" rows={10}/>

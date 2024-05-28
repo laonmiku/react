@@ -36,6 +36,7 @@ const MenuPage = () => {
                 <>
                   <Nav.Link href="/book/cart" className={path=="/book/cart" && 'active'}>장바구니</Nav.Link>
                   <Nav.Link href="/local/favorite" className={path=="/local/favorite" && 'active'}>즐겨찾기</Nav.Link>
+                  <Nav.Link href="/chat" className={path=="/chat" && 'active'}>채팅</Nav.Link>
                 </>
               }
               <Nav.Link href="/post/list" className={path.startsWith('/post') && 'active'}>게시판</Nav.Link>
