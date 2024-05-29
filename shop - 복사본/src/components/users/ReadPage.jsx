@@ -53,13 +53,13 @@ const ReadPage = () => {
                         <h3 className='text-center my-2'>마이페이지</h3>
                     </Card.Header>
                     <Card.Body>
-                        <Row className='mt-3'>
-                            <Col md={4} className='mt-3'>
+                        <Row className='mt-4'>
+                            <Col xs={4} md={4} lg={4}>
                                 <div className='text-center'>
-                                    <ModalPhoto uid={uid} photo={photo} callAPI={callAPI}/>
+                                    <ModalPhoto uid={uid} form={form} callAPI={callAPI} photo={photo} />
                                 </div>
                             </Col>    
-                            <Col className='mt-2'>
+                            <Col>
                                 <form onSubmit={onSubmit}>
                                     <InputGroup className='mb-2'>
                                         <InputGroup.Text  className='justify-content-center mypage_title' >이름</InputGroup.Text>

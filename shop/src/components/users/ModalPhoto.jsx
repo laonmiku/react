@@ -3,80 +3,90 @@ import { useEffect, useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const ModalPhoto = ({uid,form,callAPI,photo}) => {
-    const [fileName,setFileName] = useState(photo);
-    const [file, setFile] = useState(null);
-    const refPhoto = useRef(null);
+
+const ModalPhoto = ({uid,photo,callAPI}) => {
+
     const [show, setShow] = useState(false);
-    const handleClose = () => {
+    const handleClose = () =>{
         setShow(false);
-        setFileName(photo);
+        setImage({
+            name:photo,
+            file:null
+        });//이미지는 클로즈할떄안해도댈듯,,,call해줘서,,
     };
-    const handleShow = () => setShow(true);
-    const pic={
-        width:'150px',
-        height:'150px',
+    const handleShow = () => {
+        setShow(true);
+        setImage({
+            name:photo,
+            file:null
+        });
+    };
+    const photoST={
         borderRadius:'50%',
-        cursor:'pointer',
+        width: '170px',
+        height:'170px',
         borderWidth: '1px',
-		borderColor: '#aaa',
-        borderStyle: 'solid'
-    }
-    const onChangeFile =(e)=>{
-        setFileName(URL.createObjectURL(e.target.files[0]));
-        setFile(e.target.files[0]);
+        borderColor: '#aaa',
+        borderStyle:'solid'
     }
 
+    const [image,setImage]=useState({
+        name:'',
+        file:null
+    });
+    const {name,file}=image;//비구조할당
+
+    const onChangeFile=(e)=>{
+        setImage({
+            name : URL.createObjectURL(e.target.files[0]),
+            file : e.target.files[0]
+        });
+    }
+
+    const ref_photo = useRef(null); 
     const onClickSave =async()=>{
-        if(!file){
-            alert("변경할 이미지를 선택하세요!");
+        if(!file) {
+            alert("변경할 사진을 선택하세요!");
             return;
         }
-        if(!window.confirm("변경한 이미지를 저장하실래요?")) return;
-        //이미지업로드
-        const formData = new FormData();
-        formData.append('file',file); /* 'file'은 백에서 업로드.싱글에 준이름임*/ 
-        formData.append('uid',uid);
-        const res=await axios.post('/users/photo', formData);
-
-        if(res.data.result == 1){
-            alert('업로드성공');
-            callAPI();
+        if(!window.confirm(uid+"의 사진을 선택한사진으로변경하실래요?")) return;
+        //사진저장
+        const data = new FormData();
+        data.append('file', file);
+        data.append('uid', uid);
+        const res = await axios.post('/users/photo',data);
+        if(res.data.result===1){
             handleClose();
+            callAPI();
         }
     }
+    return (
+    <>
+        
+        <img src= {photo || "http://via.placeholder.com/200x200"} width='100%' onClick={handleShow}/>
 
-    useEffect(()=>{
-        setFileName(photo);
-    },[photo])
+        <Modal
+            show={show}
+            onHide={handleClose}
+            backdrop="static"
+            keyboard={false}
+            style={{top:'30%'}}
 
-     return (
-        <>
-        <img src={photo || "http://via.placeholder.com/150x150"} onClick={handleShow}/>
-
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-        style={{top:'30%'}}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>사진변경</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className='text-center'>
-            <img onClick={()=>refPhoto.current.click()} src={fileName ||  "http://via.placeholder.com/150x150"}  style={pic}/>
-            <input onChange={onChangeFile} ref={refPhoto} type='file' style={{display:'none'}} />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="outline-secondary" onClick={handleClose}>
-            닫기
-          </Button>
-          <Button onClick={onClickSave} variant="outline-primary">저장</Button>
-        </Modal.Footer>
-      </Modal>
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>프로필 사진 변경</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className='text-center'>
+                <img onClick={()=>ref_photo.current.click()} src={name || "http://via.placeholder.com/200x200"} width='70%' style={photoST}/>
+                <input type="file" onChange={onChangeFile} ref={ref_photo} style={{display:'none'}} />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="outline-secondary" onClick={handleClose}>닫기</Button>
+                <Button variant="outline-primary" onClick={onClickSave}>저장</Button>
+            </Modal.Footer>
+        </Modal>
     </>
-     )
+    )
 }
 
 export default ModalPhoto
