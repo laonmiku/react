@@ -16,6 +16,9 @@ code {
 .mypage_title{
   width: 15%;
 }
+.orderpage_title{
+  width: 15%;
+}
 
 /*.readPage img{
   border-radius: 50%;
@@ -30,4 +33,33 @@ code {
   border-width: 1px;
 	border-color: #aaa;
   border-style: solid;
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.heart {
+  color:red;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.user-wrap {
+  width:100%;
+  margin:10px auto;
+  position: relative;
+}
+
+.user-wrap .heart {
+  width: 100%;
+  vertical-align: middle;
+}
+
+.user-text {
+  
 }

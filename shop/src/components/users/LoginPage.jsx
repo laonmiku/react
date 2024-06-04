@@ -1,11 +1,12 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Card, Col, InputGroup, Row ,Form} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
+import { CountContext } from '../CountContext';
 
 
 const LoginPage = () => {
-
+    const {callAPICount} = useContext(CountContext);
     const navi = useNavigate();
     const [form, setForm] = useState({
         uid : 'red',
@@ -27,13 +28,18 @@ const LoginPage = () => {
         //console.log(res.data.result);
         const result= parseInt(res.data.result);
         if(result===0){
-            alert("아이디가 존재하지않습니다");
-        }else if(result===2){
-            alert("비밀번호가 일치하지않습니다");
-        }else if(result===1){
-            sessionStorage.setItem("uid",uid);
-            navi('/');
-        }
+            alert("아이디가 존재하지 않습니다!");
+          }else if(result===2){
+            alert("비밀번호가 일치하지 않습니다!");
+          }else if(result===1){
+            sessionStorage.setItem('uid', uid);
+            callAPICount();
+            if(sessionStorage.getItem('target')){
+              navi(sessionStorage.getItem('target'));
+            }else{
+              navi('/');
+            }
+          }
       }
     
 
