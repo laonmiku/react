@@ -66,7 +66,6 @@ const ListPage = () => {
                         <td>작성자</td>
                         <td>작성일</td>
                         <td>조회수</td>
-                        <td>댓글수</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,12 +73,11 @@ const ListPage = () => {
                         <tr key={bbs.bid}>
                             <td className='text-center'>{bbs.bid}</td>
                             <td className='ellipsis'>
-                                <a href={`/bbs/read/${bbs.bid}?isCnt=true`}>{bbs.title}</a>
+                                <a href={`/bbs/read/${bbs.bid}?isCnt=true`}>{bbs.title} ( {bbs.replycnt} )</a>
                             </td>
                             <td className='text-center'>{bbs.uid}({bbs.uname})</td>
                             <td className='text-center'>{bbs.fmtdate}</td>
                             <td className='text-center'>{bbs.viewcnt}</td>
-                            <td className='text-center'>{bbs.replycnt}</td>
                         </tr>
                     )}
                 </tbody>

@@ -14,9 +14,14 @@ const UpdatePage = () => {
     const {title,contents} = form;
     const callAPI= async()=>{
         const res=  await axios.get(`/bbs/${bid}?isCnt=false`);
+        console.log(res.data);
         setForm(res.data);
+        //const data = res.data.map (doc=> doc && {...doc, pcontents:doc.contents , ptitle:doc.title });
+      
+        //  console.log("#############",data);
+        //setForm(data);
     }
-    useEffect(()=>{
+    useEffect(()=>{ 
         callAPI();
     },[])
     const onChangeForm=(e)=>{
@@ -28,7 +33,7 @@ const UpdatePage = () => {
     }
     const onSubmit =async(e)=>{
         e.preventDefault();
-        if( form===e.target.value){
+        if( title === form.ptitle && contents===form.pcontents){
             alert('수정된 내용이 없습니다.'); //여긴아직안댐 봐야함!!
         }else{
             if(!window.confirm('변경된 내용을 저장하실래요?')) return;

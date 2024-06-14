@@ -6,6 +6,7 @@ import '../Paging.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Stars from '../common/Stars';
 
 
 const ReplyPage = ({bid}) => {
@@ -18,12 +19,13 @@ const ReplyPage = ({bid}) => {
     const {pathname}=useLocation();
     const[contents, setContents] = useState("");
     const uid=sessionStorage.getItem("uid");
+    const [rating, setRating]=useState(0);
 
     const callAPI=async()=>{
         const url=`/reply/list.json/${bid}?page=${page}&size=${size}`;
         const res = await axios.get(url);
         console.log(res.data);
-        const data=res.data.documents.map(doc=> doc && {...doc, isEllip:true, isEdit:false, text:doc.contents});
+        const data=res.data.documents.map(doc=> doc && {...doc, isEllip:true, isEdit:false, text:doc.contents,num:doc.rating});
         setList(data);
         setCount(res.data.total);
     }
@@ -39,8 +41,9 @@ const ReplyPage = ({bid}) => {
             alert("댓글내용을 입력하세요!");
             return;
         }
-        await axios.post(`/reply/insert`,{bid,uid,contents});
+        await axios.post(`/reply/insert`,{bid,uid,contents,rating});
         setContents("");
+        setRating(0);
         callAPI();
     }
     const onClickContents =(rid)=>{
@@ -62,9 +65,9 @@ const ReplyPage = ({bid}) => {
         setList(data);
     }
     const onClickSave = async(reply) =>{
-        if(reply.contents!==reply.text) {
+        if(reply.contents!==reply.text || reply.rating!== reply.num) {
             if(!window.confirm(`${reply.rid}번 댓글을 수정하실래요?`)) return;
-            await axios.post(`/reply/update`,{rid:reply.rid, contents:reply.contents});
+            await axios.post(`/reply/update`,{rid:reply.rid, contents:reply.contents,rating:reply.rating});
         }
         callAPI();
     }
@@ -74,13 +77,24 @@ const ReplyPage = ({bid}) => {
         }
         callAPI();
     }
+    const getRating =(rating)=>{
+        console.log(rating,"########################");
+        setRating(rating);
+    }
+    const getReplyRating =(rating,rid)=>{
+        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%레이팅",rating,"%%%%%알아이디",rid);
+        const data=list.map(reply=>reply.rid===rid ? {...reply,rating:rating} : reply );
+        setList(data);
+    }
     return (
         <div>
-            
             <Row  className='justify-content-center my-5'>
                 <Col xs={12} md={12} lg={8}>
                     {sessionStorage.getItem('uid') ? 
                     <div className='mb-3'>
+                        <div>
+                            <Stars  size={'30px'} number={rating} getRating={getRating}/>
+                        </div>
                         <Form.Control as="textarea" rows={5}
                             value={contents} onChange={(e)=>setContents(e.target.value)}/>
                         <div className='text-end mt-2'>
@@ -96,11 +110,14 @@ const ReplyPage = ({bid}) => {
                     {list.map(reply=>
                         <div key={reply.rid}>
                             <Row >
-                                <Col style={{color:'#0431B4'}}>
+                                <Col style={{color:'#0431B4'}} >
                                     <span>[ {reply.rid} ]  </span>
                                     <span >{reply.uid} ( {reply.uname} )</span>
-                                    <span>  {reply.fmtdate}</span>
-                                    {reply.fmtupdate &&  <span style={{color:'#A4A4A4'}}>  (수정 : {reply.fmtupdate})</span>}
+                                    <Stars getRating={(e)=>getReplyRating(e,reply.rid)} size={'17px'} number={reply.rating} disabled={(reply.uid!==uid || !reply.isEdit) && true} />
+                                    <div>
+                                        <span>  {reply.fmtdate}</span> 
+                                        {reply.fmtupdate &&  <span style={{color:'#A4A4A4'}}>  (수정 : {reply.fmtupdate})</span>}
+                                    </div>
                                 </Col>
                                 {uid===reply.uid && !reply.isEdit &&
                                     <Col className='text-end'xs={2} md={2} lg={2}>
