@@ -1,40 +1,51 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Routes,Route } from 'react-router-dom';
-import BBSRouter from './router/BBSRouter';
-import UserRouter from './router/UserRouter';
-import HomePage from './HomePage';
-import { Badge } from 'react-bootstrap';
+import React, { useContext } from 'react'
+import { Link, Routes, Route } from 'react-router-dom'
+import HomePage from './HomePage'
+import BBSRouter from './router/BBSRouter'
+import UserRouter from './router/UserRouter'
+import MessagePage from './message/MessagePage'
+import { UserContext } from '../contexts/UserContext'
 
 const MenuPage = () => {
-  const uid = sessionStorage.getItem('uid');
-  const uname = sessionStorage.getItem('uname');
-  const onLogout =(e)=>{
+  const {user, setUser} = useContext(UserContext);
+  console.log('.............', user.uname);
+  const photo=sessionStorage.getItem('photo') &&
+     `/display?file=${sessionStorage.getItem('photo')}`;
+     
+  const uid=sessionStorage.getItem('uid');
+  const uname=sessionStorage.getItem('uname');
+  const onLogout = (e) => {
     e.preventDefault();
     if(!window.confirm("로그아웃하실래요?")) return;
     sessionStorage.clear();
-    window.location.href="/";
+    window.location.href='/';
   }
+
   return (
     <div>
-      <Link to="/" className='menubar'>Home |</Link> 
-      <Link to="/bbs/list"  className='menubar'>게시판 |</Link>
+      <Link to="/" className='me-3'>Home</Link>
+      <Link to="/bbs/list" className='me-3'>게시판</Link>
+      
       {uid ?
         <>
-          <Link to="/users/read"  className='menubar'><Badge pill  bg="info" >{uid}({uname})님</Badge></Link>
-          <Link to="#" onClick={onLogout}  className='menubar'>로그아웃 |</Link>
+          <Link to="/message" className='me-5'>메시지</Link>
+          <Link to="/users/read" className='me-3 '>
+            <img src={photo || 'http://via.placeholder.com'} width="30px" style={{border:'1px solid gray', borderRadius:'50%',margin:'0px 10px'}}/>
+            {uname}({uid})님
+          </Link>
+          <Link to="#" onClick={onLogout}>로그아웃</Link>
         </>
-      :
+        :
         <>
-          <Link to="/users/login"  className='menubar'>로그인 |</Link>
+          <Link to="/users/login">로그인</Link>
         </>
       }
-      
       <hr/>
       <Routes>
-        <Route path='/' element={<HomePage/>}/>
-        <Route path='/bbs/*' element={<BBSRouter/>}/>
-        <Route path='/users/*' element={<UserRouter/>}/>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/bbs/*" element={<BBSRouter/>}/>
+        <Route path="/users/*" element={<UserRouter/>}/>
+        <Route path="/message/*" element={<MessagePage/>}/>
       </Routes>
     </div>
   )
