@@ -3,14 +3,19 @@ import Modal from 'react-bootstrap/Modal';
 import { GiConfirmed } from "react-icons/gi";
 
 const Box = ({box, setBox}) => {
-  
-    const onClose = () => {
-        setBox({...box, show:false});
+    
+    const onCancel = () => {
+      setBox({...box, show:false});
     }
     const onAction=()=>{
         box.action();
         onClose();
     }
+    const onClose = () => {
+        if(box.action) box.action();
+        setBox({...box, show:false});
+    }
+    
   return (
     <>
       <Modal
@@ -31,7 +36,7 @@ const Box = ({box, setBox}) => {
         <Modal.Footer>
             {box.action ? 
             <>
-                <Button variant="outline-secondary" onClick={onClose}>아니오</Button>
+                <Button variant="outline-secondary" onClick={onCancel}>아니오</Button>
                 <Button onClick={onAction} variant="outline-primary" className='px-4' >예</Button>
             </>
             :
