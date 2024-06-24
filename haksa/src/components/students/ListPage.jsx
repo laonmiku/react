@@ -17,7 +17,7 @@ const ListPage = () => {
   const callAPI = async() => {
     const url=`/stu?page=${page}&size=${size}&key=dept&word=`;
     const res=await axios.get(url);
-    console.log(res.data);
+    console.log(res.data.list);
     setList(res.data.list);
     setCount(res.data.total);
   }
@@ -73,8 +73,8 @@ const ListPage = () => {
               <td>{stu.sname}</td>
               <td>{stu.year}</td>
               <td>{stu.dept}</td>
-              <td>{stu.pname && `${stu.pname} (${stu.advisor})`}</td>
               <td>{stu.birthday}</td>
+              <td>{stu.pname && `${stu.pname} (${stu.pcode})`}</td>
               <td>
                 <Button onClick={()=>onClickDelete(stu.scode)}
                   size='sm' variant='outline-danger'>삭제</Button></td>
