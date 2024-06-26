@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
+
+* {
+    font-family: "Sunflower", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    text-align: center;
+}
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    min-height: 400px; margin-bottom: 20px;
+   }
