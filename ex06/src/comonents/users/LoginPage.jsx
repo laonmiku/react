@@ -22,7 +22,7 @@ const LoginPage = () => {
       alert("로그인성공");
       setUser({uid,uname:'무기명'});
       sessionStorage.setItem('uid',uid);
-      navi('/');
+      window.location.href='/';
     }else if(res.data ===2){
       alert("비밀번호가 일치하지 않습니다!");
     }else if(res.data ===0){

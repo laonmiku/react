@@ -13,23 +13,26 @@ const MenuPage = () => {
       uid:''
     });
     sessionStorage.clear();
+    window.location.href='/';
   }
   return (
     <>
     <HeaderPage/>
       <div className='mt-5'>
-        <Link to='/' className='me-3'>Home</Link>
-        <Link to='/goods/search' className='me-3'>상품검색</Link>
-        <Link to='/goods/list' className='me-3'>상품목록</Link>
+      <Link to='/' className='me-3' style={{float:'left'}}>Home</Link>
+   
         
-        {sessionStorage.getItem("uid") ?
-          <>
-            <Link to='#' className='me-3' style={{float:'right'}}>{sessionStorage.getItem("uid")}님</Link>
-            <Link  onClick={onClickLogout} to='#' className='me-3' style={{float:'right'}}>로그아웃</Link>
-          </>
+   {sessionStorage.getItem("uid") ?
+     <>
+       <Link to='/goods/search' className='me-3 'style={{float:'left'}} >상품검색</Link>
+       <Link to='/goods/list' className='me-3' style={{float:'left'}}>상품목록</Link>
+       <Link to='#' className='me-3' style={{float:'right'}}>{sessionStorage.getItem("uid")}님</Link>
+       <Link  onClick={onClickLogout} to='#' className='me-3' style={{float:'right'}}>로그아웃</Link>
+     </>
         :
           <Link to='/users/login' className='me-3' style={{float:'right'}}>로그인</Link>
         }
+        <br/>
         <hr/>
       </div>
       <RouterPage/>

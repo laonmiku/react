@@ -4,6 +4,7 @@ import MenuPage from './common/MenuPage';
 import { useState } from 'react';
 import { BoxContext } from './common/BoxContext';
 import Box from './common/Box';
+import MenuCustomer from './common/MenuCustomer';
 
 function App() {
  
@@ -16,7 +17,12 @@ function App() {
   return (
       <BoxContext.Provider value={{box, setBox,user, setUser}}>
         <Container>
+          {sessionStorage.getItem("uid")==='admin' ? 
             <MenuPage/>
+            :
+            <MenuCustomer/>
+          }
+            
         </Container>
         {box.show && <Box box={box} setBox={setBox}/>}
       </BoxContext.Provider>
