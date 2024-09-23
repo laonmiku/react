@@ -9,6 +9,7 @@ import { Badge } from 'react-bootstrap';
 import { FaCartArrowDown } from "react-icons/fa";
 import { CountContext } from './CountContext';
 import AdminRouter from './admin/AdminRouter';
+import TopPage from './TopPage';
 //<FaCartArrowDown />
 //import {CountConText} from './CountContext';
 
@@ -52,9 +53,10 @@ const MenuPage = () => {
 
   return (
     <>
+      
       <Navbar expand="lg" className="bg-primary" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="/">LOGO</Navbar.Brand>
+          <Navbar.Brand href="/">HOME</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -107,6 +109,7 @@ const MenuPage = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <TopPage/>
       <RouterPage/>
       <AdminRouter/>
     </>

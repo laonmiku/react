@@ -131,8 +131,8 @@ const ReviewPage = ({bid}) => {
       <div className='my-5'>
         {reviews.map(r=>
           <div key={r.rid}>
-            <Row>
-              <Col className='text-muted' style={{fontSize:'12px'}}>
+            <Row className='w-100'>
+              <Col className='text-muted w-100' style={{fontSize:'12px'}}>
                 <img src={r.photo || 'http://via.placeholder.com/30x30'} 
                     width="30px" style={{borderRadius:'50%'}}/>
                 <span className='mx-3'>{r.uname}({r.uid})</span>

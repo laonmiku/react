@@ -11,7 +11,7 @@ const HomePage = () => {
   const [count, setCount] = useState(0);
   const [books, setBooks] = useState([]);
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(6);
+  const [size, setSize] = useState(18);
   const [key, setKey] = useState('title');
   const [word, setWord] = useState('');
 

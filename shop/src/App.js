@@ -38,7 +38,6 @@ function App() {
   return (
     <CountContext.Provider value={{count ,setCount, callAPICount}} >
     <Container className="App">
-      <TopPage/>
       <MenuPage/>
       <BottomPage/>
     </Container>

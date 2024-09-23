@@ -4,7 +4,7 @@ const TopPage = () => {
   return (
     <div>
         <a href='/'>
-        <img src='/images/fifit.png' style={{width:'100%'}}/>
+        <img src='/images/maninet.jpg' style={{width:'100%'}}/>
         </a>
     </div>
   )

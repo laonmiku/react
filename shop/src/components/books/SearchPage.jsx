@@ -95,7 +95,7 @@ const SearchPage = () => {
    
     useEffect(()=>{
         callAPI()
-      }, [page]);
+      }, [page,size]);
     
       useEffect(()=>{
         let count=0;

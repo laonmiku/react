@@ -114,9 +114,8 @@ const ReadPage = () => {
                 <div className='mb-3'>수정일: {fmtdate}</div>
                 <hr/>
                 <div className='mt-3'>
-                  <Button onClick={()=>getUserCount()} className='px-3 me-2' variant='warning'>바로구매</Button>
                   <Button
-                    className='px-3' variant='success' onClick={onClickCart}>장바구니</Button>
+                    className='px-3 w-100' variant='success' onClick={onClickCart}>장바구니</Button>
                 </div>
               </Col>
             </Row>
